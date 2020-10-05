@@ -30,6 +30,7 @@ int cursorX,cursorY;
 int rows, col;
 //DIR *cur_dir;
 struct winsize w;
+struct termios old_terminal;
 
 
 
@@ -199,7 +200,7 @@ int main(){
 
         if(in ==':')
         {
-            enterCommandMode();
+            enterCommandMode(old_terminal);
         }
 
 

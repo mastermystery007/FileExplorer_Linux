@@ -5,10 +5,10 @@
 #include "config.h"
 
 void setNonCanonical();
-
+extern struct termios old_terminal;
 
 void setNonCanonical(){
-struct termios old_terminal;
+
 	tcgetattr ( 1 , &old_terminal);
 	struct termios new_terminal = old_terminal;
 	new_terminal.c_lflag &= ~ICANON;
