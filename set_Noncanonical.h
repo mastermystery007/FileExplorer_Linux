@@ -4,6 +4,8 @@
 
 #include "config.h"
 
+
+
 void setNonCanonical();
 extern struct termios old_terminal;
 

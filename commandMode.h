@@ -1,8 +1,24 @@
 #ifndef COMMAND
 #define COMMAND
 #include "config.h"
-
-
+#include "make_directory.h"
+#include "rename_dir.h"
+#include "search_file.h"
+#include "goto.h"
+#include "delete_file.h"
+#include "delete_dir.h"
+//todo 
+/*
+cursor implementatiom
+forward stack
+open file when enter pressed
+change variable names
+empty formulatedCommands for next command
+up page down page implementation
+open directory when goto
+create file ​as --> create_file foo.txt ~/foobar
+Copying/Moving directories should also be implemented
+*/
 vector<string> formulatedCommands;
 extern string path;
 
@@ -31,7 +47,15 @@ void enterCommandMode(struct termios term_p)
         c=cin.get();
         //cout<<"char entered"<<"\n";
 
-        typedString+=c; 
+
+
+
+        if(!isspace(c))
+        {
+        typedString+=c;
+        }
+
+         
         
         //if(c=='/0'){}
         if(c=='q'){}
@@ -40,6 +64,66 @@ void enterCommandMode(struct termios term_p)
         {
             cout<<"enter pressed";
             formulatedCommands.push_back(typedString);
+
+            if(formulatedCommands[0]=="create_dir")
+            {
+                createDir(formulatedCommands);
+                cls();
+            }
+
+           else  if(formulatedCommands[0]=="rename_dir")//rename(/home/mystery/Pictures,/home/mystery/Pics)
+            {
+                rename(formulatedCommands);
+                cls();
+            }
+
+            else  if(formulatedCommands[0]=="move")//move(/home/mystery/Pictures,/home/mystery/Downloads/Pics)
+            {
+                move(formulatedCommands);
+                cls();
+            }
+
+
+
+           else if(formulatedCommands[0]=="goto")//goto(/home/mystery/Pictures/)
+            {
+              //  deleteDir(formulatedCommands);
+              cls();
+              gotoF(formulatedCommands);
+                
+            }
+
+            else if(formulatedCommands[0]=="delete_file") //deleteFile(/home/mystery/Pictures/lastest.png)
+            {
+             
+              cls();
+              deleteFile(formulatedCommands);
+                
+            }
+
+            else if(formulatedCommands[0]=="delete_dir") //(delete directory,/home/mystery/Pictures)
+            {
+              //  deleteDir(formulatedCommands);
+              cls();
+              deleteDir(formulatedCommands);
+                
+            }
+
+
+
+            else if(formulatedCommands[0]=="search_file")
+            {
+
+                cls ();
+                vector<string> res = search(formulatedCommands);
+
+                for(int i=0;i<res.size();i++)
+                {
+                    cout<<res[i]<<endl;
+                }
+                //cls ();
+            }
+            
             typedString="";
         }
 
