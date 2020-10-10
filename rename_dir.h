@@ -4,18 +4,34 @@
 
 #include "config.h"
 #include "commandMode.h"
-//rename(/home/mystery/Pictures,/home/mystery/Pics)
-int rename(vector<string> &commandSplit);
+#include "get_parent_dir.h"
+//commnads can be relative to current directory or can be absolute path
+//rename_dir /home/mystery/Pictures Pics
+//rename_dir ./testover testing
+// It accepts arg from command and rename file/dir 
+int rename(vector<string> commandSplit);
 
 
-int rename(vector<string> &commandSplit)	// It accepts arg from command and rename file/dir 
+int rename(vector<string> commandSplit)	
 {
-	char *old=new char[commandSplit[1].length()+1];
-	char *_new=new char[commandSplit[2].length()+1];
-	strcpy(old,commandSplit[1].c_str());
-	strcpy(_new,commandSplit[2].c_str());
+	string path = commandSplit[1];
+	
+	string pathparent = returnParentDirectory(path);
+
+	pathparent =pathparent+commandSplit[2];
+	string oldpathName =realpath(path.c_str(),NULL); 
+
+	
+	
+
+	char *_old=new char[oldpathName.length()+1];
+	char *_new=new char[pathparent.length()+1];
+	strcpy(_old,oldpathName.c_str());
+	strcpy(_new,pathparent.c_str());
+	//cout<<"new path is "<<_new<<endl;
+	//cout<<"old path is ="<<_old<<endl;
    	
-   	int status=rename(old,_new);
+   	int status=rename(_old,_new);
    	if(status!=0)
    	{
    		cout<<endl<<"No such file exists"<<endl;
@@ -23,7 +39,7 @@ int rename(vector<string> &commandSplit)	// It accepts arg from command and rena
     else
     {
         cout<<"renamed"<<endl;
-        cout<<"full paht "<<realpath("./",NULL);
+        
     }
 	return 0;
 }

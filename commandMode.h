@@ -7,6 +7,8 @@
 #include "goto.h"
 #include "delete_file.h"
 #include "delete_dir.h"
+#include "move.h"
+#include "copy.h"
 //todo 
 /*
 cursor implementatiom
@@ -57,7 +59,7 @@ void enterCommandMode(struct termios term_p)
 
          
         
-        //if(c=='/0'){}
+        //escape pressed
         if(c=='q'){}
 
         if(c==10)
@@ -71,16 +73,29 @@ void enterCommandMode(struct termios term_p)
                 cls();
             }
 
-           else  if(formulatedCommands[0]=="rename_dir")//rename(/home/mystery/Pictures,/home/mystery/Pics)
+           else  if(formulatedCommands[0]=="rename")//rename(/home/mystery/Pictures,/home/mystery/Pics)
             {
-                rename(formulatedCommands);
                 cls();
+                rename(formulatedCommands);
+                
             }
 
             else  if(formulatedCommands[0]=="move")//move(/home/mystery/Pictures,/home/mystery/Downloads/Pics)
             {
-                move(formulatedCommands);
+                //not working
+
                 cls();
+               // moveFD(formulatedCommands);
+                
+            }
+
+            else  if(formulatedCommands[0]=="copy")//move(/home/mystery/Pictures,/home/mystery/Downloads/Pics)
+            {
+                //not working
+
+                cls();
+                copyDirectory(formulatedCommands[1],formulatedCommands[2]);
+                
             }
 
 
@@ -97,15 +112,22 @@ void enterCommandMode(struct termios term_p)
             {
              
               cls();
+              
               deleteFile(formulatedCommands);
                 
             }
 
             else if(formulatedCommands[0]=="delete_dir") //(delete directory,/home/mystery/Pictures)
             {
-              //  deleteDir(formulatedCommands);
-              cls();
-              deleteDir(formulatedCommands);
+              //  deleteDir(formulatedCommands);/home/mystery/Pictures/testdir
+                cls();
+              
+                char *deletedir;
+                deletedir= new char[formulatedCommands[1].length()+1];
+                strcpy(deletedir,formulatedCommands[1].c_str());
+
+                cout<<deletedir;
+                removeDirectory(deletedir);
                 
             }
 

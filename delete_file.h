@@ -2,9 +2,9 @@
 #define DELETE
 #include "config.h"
 
-int deleteFile(vector<string> &commandSplit)	// It accepts arg from commandFile and delete file/files.
+int deleteFile(vector<string> commandSplit)	// It accepts arg from commandFile and delete file/files.
 {
-    char *remove_argument;
+    	char *remove_argument;
     
     	remove_argument= new char[commandSplit[1].length()+1];
     	strcpy(remove_argument,commandSplit[1].c_str());

@@ -68,11 +68,12 @@ string returnParentDirectory(string path)
         {
             parentDir=parentDir+path_vector[i]+"/";
         }
+       
         
     }
     
     //path =parentDir;
-    cout<<"Current path is "<< path<<endl;
+    cout<<"parent path is "<< parentDir<<endl;
     return parentDir;
 }
 
